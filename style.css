@@ -30,35 +30,35 @@
   font-weight: 400;
   font-family: "Pragmatica";
   font-style: normal;
-  src: url("/assets/fonts/Pragmatica-Book.woff2") format("woff2");
+  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Book.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-weight: 500;
   font-family: "Pragmatica";
   font-style: normal;
-  src: url("/assets/fonts/Pragmatica-Medium.woff2") format("woff2");
+  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Medium.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-weight: 700;
   font-family: "Pragmatica";
   font-style: normal;
-  src: url("/assets/fonts/Pragmatica-Bold.woff2") format("woff2");
+  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Bold.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-weight: 400;
   font-family: "ArnoPro";
   font-style: normal;
-  src: url("/assets/fonts/ArnoPro-Regular.woff2") format("woff2");
+  src: url("/forLocalGreekLegend/assets/fonts/ArnoPro-Regular.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-weight: 700;
   font-family: "ArnoPro";
   font-style: normal;
-  src: url("/assets/fonts/ArnoPro-Bold.woff2") format("woff2");
+  src: url("/forLocalGreekLegend/assets/fonts/ArnoPro-Bold.woff2") format("woff2");
   font-display: swap;
 }
 *,
