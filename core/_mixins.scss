@@ -1,0 +1,77 @@
+@use "sass:string";
+@use "var";
+
+// псевдоэлемент
+@mixin pseudo($content: "", $pos: absolute, $display: block) {
+    content: $content;
+    position: $pos;
+    display: $display;
+}
+
+// Обрезка многострочного текста троеточием
+@mixin truncate-multiline($line-clamp, $word-break: break-word) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line-clamp;
+    overflow: hidden;
+    word-break: $word-break;
+}
+
+// Обрезка текста троеточием
+@mixin truncate($max-width: 100%) {
+    display: block;
+    width: 100%;
+    max-width: $max-width;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// Примесь для использования наведений
+@mixin hf($visible: true) {
+    @if $visible {
+
+        &:hover,
+        &:focus-visible {
+            @content;
+        }
+    }
+
+    @else {
+
+        &:hover,
+        &:focus {
+            @content;
+        }
+    }
+}
+
+// Подключение шрифта
+@mixin font-face($font-name, $path, $weight: 400, $style: normal) {
+    @font-face {
+        font-weight: $weight;
+        font-family: string.quote($font-name);
+        font-style: $style;
+        src: url("#{$path}.woff2") format("woff2");
+        font-display: swap;
+    }
+}
+
+@mixin focus($color: var.$c-black) {
+    &:focus-visible {
+        outline: 2px solid $color;
+        outline-offset: 2px;
+        @content;
+    }
+}
+
+@mixin no-scrollbar() {
+    scrollbar-color: transparent transparent;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        background-color: transparent;
+    }
+}

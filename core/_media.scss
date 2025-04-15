@@ -1,0 +1,103 @@
+@use "var";
+
+// Пример использования
+
+/*
+.main {
+  background-color: white;
+
+  @include device(laptop) {
+    background-color: brown;
+  }
+
+  @include device(tablet) {
+    background-color: black;
+  }
+
+  @include device(tablet-mid) {
+    background-color: red;
+  }
+
+  @include device(mobile) {
+    background: green;
+  }
+
+  @include before-device(tablet) {
+    &::hover {
+      color: white;
+    }
+  }
+}
+*/
+
+@mixin device($breakpoint) {
+  @if $breakpoint == laptop {
+    @media only screen and (max-width: var.$laptop-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == laptop-mid {
+    @media only screen and (max-width: var.$laptop-mid-width) {
+      @content;
+    }
+  } @else if $breakpoint == laptop-min {
+    @media only screen and (max-width: var.$laptop-min-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media only screen and (max-width: var.$tab-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-mid {
+    @media only screen and (max-width: var.$tab-mid-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-min {
+    @media only screen and (max-width: var.$tab-min-width) {
+      @content;
+    }
+  } @else if $breakpoint == mobile {
+    @media only screen and (max-width: var.$mobile-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == mobile-mid {
+    @media only screen and (max-width: var.$mobile-mid-width) {
+      @content;
+    }
+  }
+}
+
+@mixin before-device($breakpoint) {
+  @if $breakpoint == laptop {
+    @media only screen and (min-width: var.$laptop-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == laptop-mid {
+    @media only screen and (min-width: var.$laptop-mid-width) {
+      @content;
+    }
+  } @else if $breakpoint == laptop-min {
+    @media only screen and (min-width: var.$laptop-min-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media only screen and (min-width: var.$tab-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-mid {
+    @media only screen and (min-width: var.$tab-mid-width) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-min {
+    @media only screen and (min-width: var.$tab-min-width) {
+      @content;
+    }
+  } @else if $breakpoint == mobile {
+    @media only screen and (min-width: var.$mobile-max-width) {
+      @content;
+    }
+  } @else if $breakpoint == mobile-mid {
+    @media only screen and (min-width: var.$mobile-mid-width) {
+      @content;
+    }
+  }
+}
