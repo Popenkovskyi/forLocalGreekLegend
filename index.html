@@ -10,7 +10,6 @@
 
 <body>
     <main class="content__main main">
-
         <div class="premium__hero">
             <div class="video-wrapper">
                 <img id="video-frame" src="" alt="frame" />
@@ -32,6 +31,7 @@
             <section class="step" data-index="1"></section>
             <section class="step" data-index="2"></section>
             <section class="step" data-index="3"></section>
+            <section class="step" data-index="4"></section>
         </div>
 
         <div class="premium">
@@ -62,38 +62,62 @@
                 </h3>
 
                 <div class="quality__images">
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/sbor.webp" alt="Сбор оливок">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/sbor.webp">
+                            <source src=" videos/components/premium/1.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         Контроль с раннего этапа<br>
                         <span>Начинаем с почвы и урожая</span>
                     </div>
 
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/otzhim.webp" alt="отжим оливок">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/otzhim.webp">
+                            <source src=" videos/components/premium/2.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         отжим оливок<br>
                         <span>В течение 24 часов после сбора оливок</span>
                     </div>
 
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/otstoi.webp" alt="отстой и розлив">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/otstoi.webp">
+                            <source src=" videos/components/premium/3.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         отстой и розлив<br>
                         <span>После 45 дневного отстоя, розлив в течение 24 часов</span>
                     </div>
 
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/delivery.webp" alt="доставка в москву">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/delivery.webp">
+                            <source src=" videos/components/premium/4.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         доставка в москву<br>
                         <span>7 д</span>
                     </div>
 
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/region.webp" alt="доставка по регионам">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/region.webp">
+                            <source src=" videos/components/premium/5.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         доставка по регионам<br>
                         <span>1–2 д</span>
                     </div>
 
-                    <div class="image">
-                        <img class="img" src="img/components/premium/quality/table.webp" alt="масло на вашем столе">
+                    <div class="quality__content">
+                        <video class="quality__video" autoplay muted loop
+                            poster="img/components/premium/quality/table.webp">
+                            <source src=" videos/components/premium/6.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
                         масло на вашем столе<br>
                         <span>за 10 дней после розлива в Греции</span>
                     </div>
@@ -177,7 +201,7 @@
 
                 <div class="advantages__header">
                     <span class="premium__title active" data-type="combinations">сочетания</span>
-                    <span class="premium__title" data-type="vitamins">витамины</span>
+                    <span class="premium__title d-xs-none" data-type="vitamins">витамины</span>
                 </div>
                 <div class="advantages__list" id="combinations">
                     <div class="list-header">
@@ -240,7 +264,15 @@
                     </div>
                 </div>
 
-                <div class="advantages__list hide" id="vitamins">
+                <button class="premium__button d-desktop-none" id="openCombinations">
+                    раскрыть список
+                </button>
+
+                <div class="advantages__header d-desktop-none">
+                    <span class="premium__title" data-type="vitamins">витамины</span>
+                </div>
+
+                <div class="advantages__list" id="vitamins">
                     <div class="list-header">
                         <span>
                             Продукты
@@ -435,11 +467,10 @@
     <script src="hero.js" async></script>
 
     <script src="uniqSection.js" async></script>
-
-    <script src="advantages.js" async></script>
-
     <!-- блок с картинками -->
     <script src="quality.js" async></script>
+
+    <script src="advantages.js" async></script>
 
     <script src="slider.js" async></script>
 </body>

@@ -322,7 +322,7 @@
             padding-block: 72px 259px;
         }
 
-        .image {
+        .quality__content {
             position: relative;
 
             font-family: Arno Pro;
@@ -361,7 +361,8 @@
                 }
             }
 
-            .img {
+            .quality__video {
+                width: 100%;
                 border-radius: 18px;
                 margin-bottom: 24px;
             }
@@ -598,6 +599,16 @@
 
         .active {
             color: #A96232;
+
+            @include media.device(tablet) {
+                color: unset;
+            }
+        }
+
+        @include media.device(tablet) {
+            &.d-desktop-none {
+                padding-top: 72px;
+            }
         }
     }
 
@@ -662,6 +673,7 @@
             position: absolute;
             bottom: 82px;
 
+            min-width: 600px;
             width: 100%;
             height: 64px;
             background: linear-gradient(180deg, rgba(245, 242, 240, 0) 0%,
@@ -674,6 +686,7 @@
             position: absolute;
             bottom: 0;
 
+            min-width: 600px;
             width: 100%;
             height: 82px;
             background-color: rgba(245, 242, 240, 1);
@@ -725,6 +738,20 @@
             &:nth-child(3) {
                 grid-column: 19 / span 5;
             }
+        }
+    }
+
+    .d-xs-none {
+        @include media.device(tablet) {
+            display: none;
+        }
+    }
+
+    .d-desktop-none {
+        display: none;
+
+        @include media.device(tablet) {
+            display: block;
         }
     }
 }

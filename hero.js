@@ -7,7 +7,7 @@ const currentFrameDisplay = document.getElementById("current-frame");
 
 let currentFrame = 0;
 const startFrame = 90;
-const totalFrames = 210;
+const totalFrames = 240;
 
 let fps = 48;
 let direction = 1; // 1 — вперёд, -1 — назад
@@ -17,7 +17,8 @@ const fragments = [
     { start: 0, end: 89, text: 'Фермерская линейка масла — Voutaktakis.' },
     { start: 89, end: 104, text: 'Фермерская линейка масла — Chatzigiorgis.' },
     { start: 104, end: 118, text: 'Фермерская линейка масла — Papadakis.' },
-    { start: 118, end: 209, text: 'Фермерская линейка масла — Другой текст' },
+    { start: 118, end: 170, text: 'Фермерская линейка масла — Другой текст' },
+    { start: 170, end: 240, text: 'Фермерская линейка масла — Другой текст' },
 ];
 
 function pad(n) {
