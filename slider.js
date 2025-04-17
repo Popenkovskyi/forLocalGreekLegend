@@ -17,3 +17,6 @@ new Swiper('.js-premium-recipes-swiper', {
 });
 
 console.log('swiper')
+
+const images = document.querySelectorAll('img');
+images.forEach(el => el.addEventListener("contextmenu", (e) => e.preventDefault()));

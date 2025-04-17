@@ -186,6 +186,11 @@ section[id] {
   image-rendering: auto;
   display: block;
 }
+@media only screen and (max-width: 1199px) {
+  .premium__hero img {
+    object-fit: cover;
+  }
+}
 .premium__hero input[type=range] {
   width: 150px;
 }
@@ -208,6 +213,11 @@ section[id] {
   z-index: 2;
   display: flex;
   gap: 8px;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__hero .avatars {
+    display: none;
+  }
 }
 .premium__hero .avatars__people {
   width: 80px;
@@ -253,6 +263,7 @@ section[id] {
   text-wrap: balance;
 }
 .premium__hero .avatar-description .avatar-description__step {
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
   font-style: italic;
   font-size: 20px;
   line-height: 20px;
@@ -355,6 +366,7 @@ section[id] {
   line-height: 90%;
   letter-spacing: 5%;
   font-variant: small-caps;
+  cursor: pointer;
 }
 @media only screen and (max-width: 1199px) {
   .premium__uniq .uniq-content__type {
@@ -394,7 +406,7 @@ section[id] {
 }
 .premium__uniq .uniq-content__number span:not(.premium__subtitle) {
   font-weight: 400;
-  font-size: 64px;
+  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 6.4rem);
   line-height: 80%;
   letter-spacing: 0%;
   text-align: center;
@@ -448,6 +460,7 @@ section[id] {
   letter-spacing: 5%;
   text-align: center;
   font-variant: small-caps;
+  text-transform: lowercase;
   font-variant-numeric: oldstyle-nums proportional-nums;
 }
 .premium__quality .quality__images .quality__content span {
@@ -487,7 +500,7 @@ section[id] {
   }
 }
 .premium__quality .quality__images .quality__content:nth-child(2) {
-  margin-top: 225px;
+  margin-top: 290px;
   grid-column: 13/-1;
 }
 @media only screen and (max-width: 1199px) {
@@ -539,7 +552,7 @@ section[id] {
   position: relative;
   grid-column: 14/-1;
   grid-row: 6;
-  padding-top: 136px;
+  padding-top: 160px;
   font-size: clamp(2.4rem, 1.8rem + 1.1111vw - 13.3333px, 3.2rem);
   line-height: 90%;
   letter-spacing: 0%;
@@ -675,6 +688,7 @@ section[id] {
   display: flex;
   gap: 32px;
   padding: 32px 24px;
+  cursor: pointer;
 }
 .premium__advantages .advantages__header .active {
   color: #A96232;
@@ -776,7 +790,7 @@ section[id] {
   font-variant: small-caps;
   text-transform: lowercase;
   text-wrap: balance;
-  color: rgb(44, 44, 44);
+  color: rgba(44, 44, 44, 0.5);
 }
 @media only screen and (max-width: 1199px) {
   .premium__advantages .advantages__list .list-header {

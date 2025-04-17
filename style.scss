@@ -28,6 +28,10 @@
         /* четкость */
         image-rendering: auto;
         display: block;
+
+        @include media.device(tablet) {
+            object-fit: cover;
+        }
     }
 
     input[type="range"] {
@@ -58,6 +62,10 @@
 
         display: flex;
         gap: 8px;
+
+        @include media.device(tablet) {
+            display: none;
+        }
     }
 
     .avatars__people {
@@ -112,6 +120,7 @@
         }
 
         .avatar-description__step {
+            font-family: var.$arno-font;
             font-style: italic;
             font-size: 20px;
             line-height: 20px;
@@ -228,6 +237,7 @@
 
         letter-spacing: 5%;
         font-variant: small-caps;
+        cursor: pointer;
 
         @include media.device(tablet) {
             order: 1;
@@ -274,7 +284,7 @@
 
         span:not(.premium__subtitle) {
             font-weight: 400;
-            font-size: 64px;
+            @include font-clamp(3.2rem, 6.4rem);
             line-height: 80%;
             letter-spacing: 0%;
             text-align: center;
@@ -332,6 +342,7 @@
             letter-spacing: 5%;
             text-align: center;
             font-variant: small-caps;
+            text-transform: lowercase;
 
             font-variant-numeric: oldstyle-nums proportional-nums;
 
@@ -376,7 +387,7 @@
             }
 
             &:nth-child(2) {
-                margin-top: 225px;
+                margin-top: 290px;
                 grid-column: 13 / -1;
 
                 @include media.device(tablet) {
@@ -432,7 +443,7 @@
             grid-column: 14 / -1;
             grid-row: 6;
 
-            padding-top: 136px;
+            padding-top: 160px;
             @include font-clamp(2.4rem, 3.2rem);
             line-height: 90%;
             letter-spacing: 0%;
@@ -596,6 +607,7 @@
         gap: 32px;
 
         padding: 32px 24px;
+        cursor: pointer;
 
         .active {
             color: #A96232;
@@ -702,7 +714,7 @@
 
             text-transform: lowercase;
             text-wrap: balance;
-            color: rgba(44, 44, 44, 1);
+            color: rgba(44, 44, 44, 0.5);
         }
 
         .list-cell {
