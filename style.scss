@@ -8,8 +8,72 @@
     --mouse-y: 0%;
 }
 
+.mask {
+    overflow: hidden;
+}
+
 @mixin font-clamp($min, $max) {
     font-size: clamp($min, calc(1.8rem + 1.1111vw - 13.3333px), $max);
+}
+
+.premium {
+    position: relative;
+    z-index: 2;
+
+    font-family: var.$arno-font;
+    font-size: 2rem;
+    font-weight: 400;
+    background-color: rgba(245, 242, 240, 1);
+
+    &__subtitle {
+        font-weight: inherit;
+        font-style: italic;
+        font-size: 20px;
+        line-height: 20px;
+        letter-spacing: 0%;
+        text-align: center;
+
+        margin: 0 0 32px;
+    }
+
+    &__title {
+        font-weight: inherit;
+        @include font-clamp(3.2rem, 4.8rem);
+        line-height: 90%;
+        letter-spacing: 5%;
+        text-align: center;
+        font-variant: small-caps;
+        text-transform: lowercase;
+
+        text-wrap: balance;
+    }
+
+    &__button {
+        width: 100%;
+        padding: 11px 24px;
+        background: rgba(44, 44, 44, 1);
+        text-transform: lowercase;
+        color: white;
+        border: none;
+        cursor: pointer;
+
+        font-family: var.$arno-font;
+        font-size: 20px;
+        line-height: 90%;
+        letter-spacing: 5%;
+        font-variant: small-caps;
+
+        transition: 0.2s;
+
+        &:hover {
+            background: rgba(245, 242, 240, 1);
+            color: rgba(44, 44, 44, 1);
+        }
+    }
+
+    img {
+        pointer-events: none;
+    }
 }
 
 .premium__hero {
@@ -24,8 +88,6 @@
         max-width: 100%;
         width: 100%;
         height: 100%;
-        image-rendering: crisp-edges;
-        /* четкость */
         image-rendering: auto;
         display: block;
 
@@ -34,8 +96,9 @@
         }
     }
 
-    input[type="range"] {
-        width: 150px;
+    img:not([src]),
+    img[src=""] {
+        display: none;
     }
 
     .step {
@@ -63,23 +126,144 @@
         display: flex;
         gap: 8px;
 
+        opacity: 0;
+
         @include media.device(tablet) {
             display: none;
         }
-    }
 
-    .avatars__people {
-        width: 80px;
-        height: 80px;
+        &__people {
+            width: 80px;
+            height: 80px;
 
-        opacity: 50%;
+            opacity: 50%;
+            transition: opacity .3s;
 
-        &.active {
-            opacity: 100%;
+            &.active {
+                opacity: 100%;
+            }
         }
     }
 
-    .avatar-description {
+    .description__step {
+        position: relative;
+        font-family: var.$arno-font;
+        font-style: italic;
+        font-size: 20px;
+        line-height: 20px;
+
+        overflow: hidden;
+    }
+
+    .text-content {
+        font-family: var.$main-font;
+        font-weight: 400;
+        font-size: 2.6rem;
+        line-height: 110%;
+        letter-spacing: 0%;
+        font-variant-numeric: lining-nums proportional-nums;
+
+        @include media.device(tablet) {
+            font-size: 1.8rem;
+        }
+    }
+
+    .uv-protection,
+    .history {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        z-index: 2;
+
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        width: 608px;
+        padding: 24px 45px 32px 24px;
+        background: rgba(245, 242, 240, .15);
+        border-radius: 18px;
+        color: white;
+
+        opacity: 0;
+
+        @include media.device(tablet) {
+            width: auto;
+        }
+    }
+
+    .main-content {
+        position: absolute;
+        inset: 0;
+        color: white;
+        z-index: -1;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        font-family: var.$arno-font;
+        text-align: center;
+
+        &__subtitle {
+            font-weight: 400;
+            font-style: italic;
+            font-size: 20px;
+            line-height: 20px;
+            letter-spacing: 0%;
+            text-align: center;
+        }
+
+        &__title {
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 40px;
+            letter-spacing: 5%;
+            text-align: center;
+            font-variant: small-caps;
+
+            padding-top: 24px;
+        }
+
+        &__reward {
+            position: absolute;
+            bottom: 48px;
+
+            display: grid;
+            gap: 16px;
+
+            width: 482px;
+            padding: 16px 26px 24px;
+            border-left: 1px solid rgba(245, 242, 240, 1);
+            border-right: 1px solid rgba(245, 242, 240, 1);
+            border-radius: 100px;
+
+            @include media.device(tablet) {
+                width: auto;
+            }
+
+            .reward {
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 20px;
+                letter-spacing: 5%;
+                text-align: center;
+                font-variant: small-caps;
+                color: rgba(169, 98, 50, 1);
+            }
+
+            .reward-text {
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 20px;
+                letter-spacing: 0%;
+                text-align: center;
+            }
+        }
+    }
+
+    .description {
         position: absolute;
         bottom: 24px;
         right: 24px;
@@ -96,6 +280,8 @@
         border-radius: 18px;
         color: white;
 
+        opacity: 0;
+
         @include media.device(tablet) {
             left: 16px;
             bottom: 16px;
@@ -110,20 +296,17 @@
             backdrop-filter: blur(20px)
         }
 
-        span {
+        .description__text {
             font-family: Pragmatica;
             font-weight: 400;
-            @include font-clamp(3.2rem, 4.8rem);
+            font-size: 4.8rem;
             line-height: 90%;
 
             text-wrap: balance;
-        }
 
-        .avatar-description__step {
-            font-family: var.$arno-font;
-            font-style: italic;
-            font-size: 20px;
-            line-height: 20px;
+            @include media.device(tablet) {
+                font-size: 3.2rem;
+            }
         }
 
         button {
@@ -142,61 +325,30 @@
             border: none;
             background: rgba(255, 255, 255, 0.1);
             color: white;
+            cursor: pointer;
+
+            transition: .2s;
 
             @include media.device(tablet) {
                 width: 100%;
             }
+
+            &:hover {
+                background: rgba(245, 242, 240, 1);
+                color: rgba(44, 44, 44, 1);
+            }
         }
     }
 
-    .block {
-        height: 100vh;
-        width: 100%;
-        border-bottom: 1px solid red;
-        background-color: lightcyan;
-    }
-}
-
-.premium {
-    position: relative;
-    z-index: 2;
-
-    font-family: var.$arno-font;
-    font-size: 2rem;
-    font-weight: 400;
-    background-color: rgba(245, 242, 240, 1);
-
-    .premium__subtitle {
-        font-weight: inherit;
-        font-style: italic;
-        font-size: 20px;
-        line-height: 20px;
-        letter-spacing: 0%;
-        text-align: center;
-
-        margin: 0 0 32px;
+    span {
+        display: block;
     }
 
-    .premium__title {
-        font-weight: inherit;
-        @include font-clamp(3.2rem, 4.8rem);
-        line-height: 90%;
-        letter-spacing: 5%;
-        text-align: center;
-        font-variant: small-caps;
-        text-transform: lowercase;
-
-        text-wrap: balance;
-    }
-
-    .premium__button {
-        width: 100%;
-        padding: 11px 24px;
-        background: rgba(44, 44, 44, 1);
-        text-transform: uppercase;
-        color: white;
-        border: none;
-        cursor: pointer;
+    .description__step-numbers {
+        position: relative;
+        top: 0;
+        display: inline-grid;
+        height: 20px;
     }
 }
 
@@ -237,7 +389,6 @@
 
         letter-spacing: 5%;
         font-variant: small-caps;
-        cursor: pointer;
 
         @include media.device(tablet) {
             order: 1;
@@ -250,6 +401,7 @@
         span {
             display: block;
             text-wrap: nowrap;
+            cursor: pointer;
         }
 
         .active {
@@ -279,25 +431,34 @@
 
         font-weight: 400;
 
-        max-width: 766px;
+        max-width: 50%;
         width: 100%;
 
         span:not(.premium__subtitle) {
             font-weight: 400;
-            @include font-clamp(3.2rem, 6.4rem);
+            font-size: 6.4rem;
             line-height: 80%;
             letter-spacing: 0%;
             text-align: center;
+            text-wrap: balance;
+
+            @include media.device(tablet) {
+                font-size: 3.2rem;
+                text-align: center;
+            }
         }
 
         @include media.device(tablet) {
             position: relative;
             order: 4;
             margin-top: 56px;
+            margin-inline: auto;
 
             top: unset;
             left: unset;
             transform: unset;
+            max-width: unset;
+
         }
     }
 }
@@ -335,7 +496,7 @@
         .quality__content {
             position: relative;
 
-            font-family: Arno Pro;
+            font-family: var.$arno-font;
             font-weight: 400;
             @include font-clamp(1.6rem, 2rem);
             line-height: 90%;
@@ -793,6 +954,10 @@
         }
 
         .premium__all-recipes {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
             font-weight: 400;
             font-size: 20px;
             line-height: 90%;
@@ -800,6 +965,16 @@
             text-align: right;
             font-variant: small-caps;
             text-transform: lowercase;
+
+            svg {
+                width: 24px;
+                height: 24px;
+
+                @include media.device(tablet) {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
         }
     }
 
@@ -816,14 +991,16 @@
         flex-direction: column;
         gap: 32px;
 
+        width: 687px;
         height: 800px;
-        padding: 24px;
+        padding: 24px 24px 32px;
         background-color: white;
         border-radius: 18px;
 
         @include media.device(tablet) {
+            width: auto;
             gap: 24px;
-            height: 403px;
+            height: 460px;
             padding: 16px;
         }
 
@@ -835,21 +1012,24 @@
 
         .slide-title {
             font-family: var.$main-font;
-            @include font-clamp(3.2rem, 4.8rem);
+            font-size: 4.8rem;
             font-weight: 400;
             line-height: 90%;
             letter-spacing: 0%;
-            text-wrap: balance;
+            color: rgba(44, 44, 44, 1);
 
-            max-width: 480px;
+            @include media.device(tablet) {
+                font-size: 3.2rem;
+            }
         }
 
         .slide-info {
             display: flex;
             gap: 16px;
 
+            font-family: var.$arno-font;
             font-style: italic;
-            @include font-clamp(1.6rem, 20rem);
+            @include font-clamp(1.6rem, 2rem);
             line-height: 20px;
             letter-spacing: 0%;
 

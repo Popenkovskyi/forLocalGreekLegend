@@ -7,8 +7,8 @@ new Swiper('.js-premium-recipes-swiper', {
         768: {
             slidesPerView: 1.5,
         },
-        1024: {
-            slidesPerView: 2.7,
+        1199: {
+            slidesPerView: 'auto',
             spaceBetween: 16,
             slidesOffsetBefore: 24,
             slidesOffsetAfter: 24,

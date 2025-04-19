@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*
 .main {
   background-color: white;
@@ -170,6 +169,60 @@ section[id] {
   --mouse-y: 0%;
 }
 
+.mask {
+  overflow: hidden;
+}
+
+.premium {
+  position: relative;
+  z-index: 2;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  background-color: rgb(245, 242, 240);
+}
+.premium__subtitle {
+  font-weight: inherit;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  margin: 0 0 32px;
+}
+.premium__title {
+  font-weight: inherit;
+  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 4.8rem);
+  line-height: 90%;
+  letter-spacing: 5%;
+  text-align: center;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+.premium__button {
+  width: 100%;
+  padding: 11px 24px;
+  background: rgb(44, 44, 44);
+  text-transform: lowercase;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 90%;
+  letter-spacing: 5%;
+  font-variant: small-caps;
+  transition: 0.2s;
+}
+.premium__button:hover {
+  background: rgb(245, 242, 240);
+  color: rgb(44, 44, 44);
+}
+.premium img {
+  pointer-events: none;
+}
+
 .premium__hero {
   display: block;
   background-color: black;
@@ -181,8 +234,6 @@ section[id] {
   max-width: 100%;
   width: 100%;
   height: 100%;
-  image-rendering: crisp-edges;
-  /* четкость */
   image-rendering: auto;
   display: block;
 }
@@ -191,8 +242,9 @@ section[id] {
     object-fit: cover;
   }
 }
-.premium__hero input[type=range] {
-  width: 150px;
+.premium__hero img:not([src]),
+.premium__hero img[src=""] {
+  display: none;
 }
 .premium__hero .step {
   height: 100vh;
@@ -213,6 +265,7 @@ section[id] {
   z-index: 2;
   display: flex;
   gap: 8px;
+  opacity: 0;
 }
 @media only screen and (max-width: 1199px) {
   .premium__hero .avatars {
@@ -223,11 +276,116 @@ section[id] {
   width: 80px;
   height: 80px;
   opacity: 50%;
+  transition: opacity 0.3s;
 }
 .premium__hero .avatars__people.active {
   opacity: 100%;
 }
-.premium__hero .avatar-description {
+.premium__hero .description__step {
+  position: relative;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.premium__hero .text-content {
+  font-family: "Pragmatica", arial, helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 2.6rem;
+  line-height: 110%;
+  letter-spacing: 0%;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__hero .text-content {
+    font-size: 1.8rem;
+  }
+}
+.premium__hero .uv-protection,
+.premium__hero .history {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 608px;
+  padding: 24px 45px 32px 24px;
+  background: rgba(245, 242, 240, 0.15);
+  border-radius: 18px;
+  color: white;
+  opacity: 0;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__hero .uv-protection,
+  .premium__hero .history {
+    width: auto;
+  }
+}
+.premium__hero .main-content {
+  position: absolute;
+  inset: 0;
+  color: white;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
+  text-align: center;
+}
+.premium__hero .main-content__subtitle {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.premium__hero .main-content__title {
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 40px;
+  letter-spacing: 5%;
+  text-align: center;
+  font-variant: small-caps;
+  padding-top: 24px;
+}
+.premium__hero .main-content__reward {
+  position: absolute;
+  bottom: 48px;
+  display: grid;
+  gap: 16px;
+  width: 482px;
+  padding: 16px 26px 24px;
+  border-left: 1px solid rgb(245, 242, 240);
+  border-right: 1px solid rgb(245, 242, 240);
+  border-radius: 100px;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__hero .main-content__reward {
+    width: auto;
+  }
+}
+.premium__hero .main-content__reward .reward {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 5%;
+  text-align: center;
+  font-variant: small-caps;
+  color: rgb(169, 98, 50);
+}
+.premium__hero .main-content__reward .reward-text {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.premium__hero .description {
   position: absolute;
   bottom: 24px;
   right: 24px;
@@ -241,9 +399,10 @@ section[id] {
   background: rgba(245, 242, 240, 0.15);
   border-radius: 18px;
   color: white;
+  opacity: 0;
 }
 @media only screen and (max-width: 1199px) {
-  .premium__hero .avatar-description {
+  .premium__hero .description {
     left: 16px;
     bottom: 16px;
     right: 16px;
@@ -255,20 +414,19 @@ section[id] {
     backdrop-filter: blur(20px);
   }
 }
-.premium__hero .avatar-description span {
+.premium__hero .description .description__text {
   font-family: Pragmatica;
   font-weight: 400;
-  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 4.8rem);
+  font-size: 4.8rem;
   line-height: 90%;
   text-wrap: balance;
 }
-.premium__hero .avatar-description .avatar-description__step {
-  font-family: "ArnoPro", arial, helvetica, sans-serif;
-  font-style: italic;
-  font-size: 20px;
-  line-height: 20px;
+@media only screen and (max-width: 1199px) {
+  .premium__hero .description .description__text {
+    font-size: 3.2rem;
+  }
 }
-.premium__hero .avatar-description button {
+.premium__hero .description button {
   font-family: "ArnoPro", arial, helvetica, sans-serif;
   font-weight: 400;
   font-size: clamp(1.6rem, 1.8rem + 1.1111vw - 13.3333px, 2rem);
@@ -283,54 +441,26 @@ section[id] {
   border: none;
   background: rgba(255, 255, 255, 0.1);
   color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 @media only screen and (max-width: 1199px) {
-  .premium__hero .avatar-description button {
+  .premium__hero .description button {
     width: 100%;
   }
 }
-.premium__hero .block {
-  height: 100vh;
-  width: 100%;
-  border-bottom: 1px solid red;
-  background-color: lightcyan;
+.premium__hero .description button:hover {
+  background: rgb(245, 242, 240);
+  color: rgb(44, 44, 44);
 }
-
-.premium {
+.premium__hero span {
+  display: block;
+}
+.premium__hero .description__step-numbers {
   position: relative;
-  z-index: 2;
-  font-family: "ArnoPro", arial, helvetica, sans-serif;
-  font-size: 2rem;
-  font-weight: 400;
-  background-color: rgb(245, 242, 240);
-}
-.premium .premium__subtitle {
-  font-weight: inherit;
-  font-style: italic;
-  font-size: 20px;
-  line-height: 20px;
-  letter-spacing: 0%;
-  text-align: center;
-  margin: 0 0 32px;
-}
-.premium .premium__title {
-  font-weight: inherit;
-  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 4.8rem);
-  line-height: 90%;
-  letter-spacing: 5%;
-  text-align: center;
-  font-variant: small-caps;
-  text-transform: lowercase;
-  text-wrap: balance;
-}
-.premium .premium__button {
-  width: 100%;
-  padding: 11px 24px;
-  background: rgb(44, 44, 44);
-  text-transform: uppercase;
-  color: white;
-  border: none;
-  cursor: pointer;
+  top: 0;
+  display: inline-grid;
+  height: 20px;
 }
 
 .premium__uniq {
@@ -366,7 +496,6 @@ section[id] {
   line-height: 90%;
   letter-spacing: 5%;
   font-variant: small-caps;
-  cursor: pointer;
 }
 @media only screen and (max-width: 1199px) {
   .premium__uniq .uniq-content__type {
@@ -379,6 +508,7 @@ section[id] {
 .premium__uniq .uniq-content__type span {
   display: block;
   text-wrap: nowrap;
+  cursor: pointer;
 }
 .premium__uniq .uniq-content__type .active {
   color: #A96232;
@@ -401,24 +531,33 @@ section[id] {
   display: flex;
   flex-direction: column;
   font-weight: 400;
-  max-width: 766px;
+  max-width: 50%;
   width: 100%;
 }
 .premium__uniq .uniq-content__number span:not(.premium__subtitle) {
   font-weight: 400;
-  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 6.4rem);
+  font-size: 6.4rem;
   line-height: 80%;
   letter-spacing: 0%;
   text-align: center;
+  text-wrap: balance;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__uniq .uniq-content__number span:not(.premium__subtitle) {
+    font-size: 3.2rem;
+    text-align: center;
+  }
 }
 @media only screen and (max-width: 1199px) {
   .premium__uniq .uniq-content__number {
     position: relative;
     order: 4;
     margin-top: 56px;
+    margin-inline: auto;
     top: unset;
     left: unset;
     transform: unset;
+    max-width: unset;
   }
 }
 
@@ -453,7 +592,7 @@ section[id] {
 }
 .premium__quality .quality__images .quality__content {
   position: relative;
-  font-family: Arno Pro;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
   font-weight: 400;
   font-size: clamp(1.6rem, 1.8rem + 1.1111vw - 13.3333px, 2rem);
   line-height: 90%;
@@ -872,6 +1011,9 @@ section[id] {
   margin: 0;
 }
 .premium__recipes .premium__head .premium__all-recipes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   font-weight: 400;
   font-size: 20px;
   line-height: 90%;
@@ -879,6 +1021,16 @@ section[id] {
   text-align: right;
   font-variant: small-caps;
   text-transform: lowercase;
+}
+.premium__recipes .premium__head .premium__all-recipes svg {
+  width: 24px;
+  height: 24px;
+}
+@media only screen and (max-width: 1199px) {
+  .premium__recipes .premium__head .premium__all-recipes svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 .premium__recipes .recipes__slider {
   padding-top: 32px;
@@ -892,15 +1044,17 @@ section[id] {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  width: 687px;
   height: 800px;
-  padding: 24px;
+  padding: 24px 24px 32px;
   background-color: white;
   border-radius: 18px;
 }
 @media only screen and (max-width: 1199px) {
   .premium__recipes .recipes__slide {
+    width: auto;
     gap: 24px;
-    height: 403px;
+    height: 460px;
     padding: 16px;
   }
 }
@@ -911,18 +1065,23 @@ section[id] {
 }
 .premium__recipes .recipes__slide .slide-title {
   font-family: "Pragmatica", arial, helvetica, sans-serif;
-  font-size: clamp(3.2rem, 1.8rem + 1.1111vw - 13.3333px, 4.8rem);
+  font-size: 4.8rem;
   font-weight: 400;
   line-height: 90%;
   letter-spacing: 0%;
-  text-wrap: balance;
-  max-width: 480px;
+  color: rgb(44, 44, 44);
+}
+@media only screen and (max-width: 1199px) {
+  .premium__recipes .recipes__slide .slide-title {
+    font-size: 3.2rem;
+  }
 }
 .premium__recipes .recipes__slide .slide-info {
   display: flex;
   gap: 16px;
+  font-family: "ArnoPro", arial, helvetica, sans-serif;
   font-style: italic;
-  font-size: clamp(1.6rem, 1.8rem + 1.1111vw - 13.3333px, 20rem);
+  font-size: clamp(1.6rem, 1.8rem + 1.1111vw - 13.3333px, 2rem);
   line-height: 20px;
   letter-spacing: 0%;
   margin-top: auto;
