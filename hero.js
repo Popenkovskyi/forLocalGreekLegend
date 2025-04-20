@@ -4,6 +4,8 @@ const currentFrameDisplay = document.getElementById("current-frame");
 
 const DURATION_SPEED = 0.2;
 
+let isPageLoad = false;
+
 let currentFrame = 0;
 const startFrame = 90;
 const totalFrames = 240;
@@ -12,7 +14,7 @@ const FPS = 48;
 let direction = 1; // 1 — вперёд, -1 — назад
 let interval = null;
 
-// 1. Обернём каждую строку в span.line
+// utils для оборачивания в span class="line"
 function wrapLines(spanLines) {
     spanLines.forEach(container => {
         const lines = container.innerHTML.split("<br>");
@@ -191,13 +193,13 @@ const fragments = [
         start: 89,
         end: 104,
         avatarIndex: 1,
-        text: 'Фермерская линейка масла — Chatzigiorgis.',
+        text: 'Фермерская линейка масла — Papadakis.',
     },
     {
         start: 104,
         end: 118,
         avatarIndex: 2,
-        text: 'Фермерская линейка масла — Papadakis.',
+        text: 'Фермерская линейка масла — Chatzigiorgis.',
     },
     {
         start: 118,
@@ -236,6 +238,8 @@ function updateFrame() {
 }
 
 function play(index) {
+    if (!isPageLoad) return;
+
     clearInterval(interval);
     const fragment = fragments[index];
 
@@ -302,13 +306,19 @@ function unlockScroll() {
 }
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// Отключить автообновление ScrollTrigger
+ScrollTrigger.config({
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
+});
+
 document.querySelectorAll(".step").forEach((step, index) => {
     ScrollTrigger.create({
         trigger: step,
         start: "top center",
         end: "top center",
-        onEnter: () => playForward(index),
-        onEnterBack: () => playBackward(index),
+        onEnter: () => { if (isPageLoad) playForward(index) },
+        onEnterBack: () => { if (isPageLoad) playBackward(index) },
         // markers: true
     });
 });
@@ -326,7 +336,8 @@ function changeActiveAvatar(fragment, direction = 1) {
     gsap.to(descriptionStepNumber, {
         y: fragment.avatarIndex * -20,
     })
-
-
 }
 
+window.addEventListener("load", () => {
+    isPageLoad = true;
+})
