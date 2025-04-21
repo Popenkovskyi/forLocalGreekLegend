@@ -1,3 +1,38 @@
+@font-face {
+  font-weight: 400;
+  font-family: "Pragmatica";
+  font-style: normal;
+  src: url("../fonts/Pragmatica-Book.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-weight: 500;
+  font-family: "Pragmatica";
+  font-style: normal;
+  src: url("../fonts/Pragmatica-Medium.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-weight: 700;
+  font-family: "Pragmatica";
+  font-style: normal;
+  src: url("../fonts/Pragmatica-Bold.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-weight: 400;
+  font-family: "ArnoPro";
+  font-style: normal;
+  src: url("../fonts/ArnoPro-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-weight: 700;
+  font-family: "ArnoPro";
+  font-style: normal;
+  src: url("../fonts/ArnoPro-Bold.woff2") format("woff2");
+  font-display: swap;
+}
 /*
 .main {
   background-color: white;
@@ -25,41 +60,6 @@
   }
 }
 */
-@font-face {
-  font-weight: 400;
-  font-family: "Pragmatica";
-  font-style: normal;
-  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Book.woff2") format("woff2");
-  font-display: swap;
-}
-@font-face {
-  font-weight: 500;
-  font-family: "Pragmatica";
-  font-style: normal;
-  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Medium.woff2") format("woff2");
-  font-display: swap;
-}
-@font-face {
-  font-weight: 700;
-  font-family: "Pragmatica";
-  font-style: normal;
-  src: url("/forLocalGreekLegend/assets/fonts/Pragmatica-Bold.woff2") format("woff2");
-  font-display: swap;
-}
-@font-face {
-  font-weight: 400;
-  font-family: "ArnoPro";
-  font-style: normal;
-  src: url("/forLocalGreekLegend/assets/fonts/ArnoPro-Regular.woff2") format("woff2");
-  font-display: swap;
-}
-@font-face {
-  font-weight: 700;
-  font-family: "ArnoPro";
-  font-style: normal;
-  src: url("/forLocalGreekLegend/assets/fonts/ArnoPro-Bold.woff2") format("woff2");
-  font-display: swap;
-}
 *,
 *::after,
 *::before {
@@ -162,11 +162,6 @@ section[id] {
 
 [data-x-cloak] {
   display: none !important;
-}
-
-:root {
-  --mouse-x: 0%;
-  --mouse-y: 0%;
 }
 
 .mask {
@@ -377,6 +372,7 @@ section[id] {
   text-align: center;
   font-variant: small-caps;
   color: rgb(169, 98, 50);
+  text-transform: lowercase;
 }
 .premium__hero .main-content__reward .reward-text {
   font-weight: 400;
