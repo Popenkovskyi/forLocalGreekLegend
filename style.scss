@@ -13,6 +13,17 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     }
 }
 
+@mixin grid-column-24 {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    gap: 24px;
+
+    @include device(tablet) {
+        display: flex;
+        gap: 41px;
+    }
+}
+
 .mask {
     overflow: hidden;
 }
@@ -29,6 +40,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     font-size: 2rem;
     font-weight: 400;
     background-color: rgba(245, 242, 240, 1);
+    font-feature-settings: "ss03" 1;
 
     &__subtitle {
         font-weight: inherit;
@@ -49,6 +61,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         text-align: center;
         font-variant: small-caps;
         text-transform: lowercase;
+        font-feature-settings: "ss03" 1;
 
         text-wrap: balance;
     }
@@ -86,15 +99,17 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     background-color: black;
 
     position: sticky;
-    top: 0;
+    top: 48px;
     z-index: 1;
+    margin-top: -48px; // fix битриксового паддинга
 
     img {
         max-width: 100%;
         width: 100%;
         height: 100%;
-        image-rendering: auto;
+        image-rendering: crisp-edges;
         display: block;
+        pointer-events: none;
 
         @include device(tablet) {
             object-fit: cover;
@@ -116,7 +131,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         inset: 0;
         z-index: 1;
 
-        height: 100dvh;
+        height: calc(100dvh - 48px);
         width: 100%;
 
         overflow: hidden;
@@ -194,6 +209,9 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
         @include device(tablet) {
             width: auto;
+            top: 16px;
+            left: 16px;
+            right: 16px;
         }
     }
 
@@ -209,6 +227,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         flex-direction: column;
 
         font-family: $arno-font;
+        font-feature-settings: "ss03" 1;
         text-align: center;
 
         &__subtitle {
@@ -222,13 +241,21 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
         &__title {
             font-weight: 400;
-            font-size: 48px;
-            line-height: 40px;
-            letter-spacing: 5%;
+            font-size: 4.8rem;
+            line-height: 90%;
+            letter-spacing: 0.2rem;
             text-align: center;
-            font-variant: small-caps;
+            font-variant: all-small-caps;
 
             padding-top: 24px;
+
+            @include device(tablet) {
+                font-size: 3.2rem;
+
+                br {
+                    display: none;
+                }
+            }
         }
 
         &__reward {
@@ -250,23 +277,109 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
             .reward {
                 font-weight: 400;
-                font-size: 20px;
+                font-size: 2rem;
                 line-height: 20px;
                 letter-spacing: 5%;
                 text-align: center;
-                font-variant: small-caps;
+                font-variant: all-small-caps;
                 color: rgba(169, 98, 50, 1);
                 text-transform: lowercase;
+
+                @include device(tablet) {
+                    font-size: 1.6rem;
+                }
             }
 
             .reward-text {
                 font-weight: 400;
-                font-size: 20px;
+                font-size: 2rem;
                 line-height: 20px;
                 letter-spacing: 0%;
                 text-align: center;
+
+                @include device(tablet) {
+                    font-size: 1.6rem;
+                }
             }
         }
+
+        // scroll animation
+        @-webkit-keyframes scroll-inner {
+            from {
+                margin-top: 15%;
+            }
+
+            to {
+                margin-top: 50%;
+            }
+        }
+
+        @keyframes scroll-inner {
+            from {
+                margin-top: 15%;
+            }
+
+            to {
+                margin-top: 50%;
+            }
+        }
+
+        @-webkit-keyframes scroll-mouse {
+            from {
+                margin-top: 0;
+            }
+
+            to {
+                margin-top: 15px;
+            }
+        }
+
+        @keyframes scroll-mouse {
+            from {
+                margin-top: 0;
+            }
+
+            to {
+                margin-top: 15px;
+            }
+        }
+
+        .mouse-container {
+            position: absolute;
+            top: 110px;
+        }
+
+        .mouse {
+            position: relative;
+            margin: 0 auto;
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: solid 2px #fff;
+            border-radius: 25px;
+            -webkit-animation: scroll-mouse 1.5s;
+            animation: scroll-mouse 1.5s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+
+            .scroll-down {
+                display: block;
+                width: 6px;
+                height: 6px;
+                background: #fff;
+                border-radius: 50%;
+                margin: 15% auto auto auto;
+
+                -webkit-animation: scroll-inner 1.5s;
+                animation: scroll-inner 1.5s;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                -webkit-animation-timing-function: ease;
+                animation-timing-function: ease
+            }
+        }
+
+        // scroll animation end6
     }
 
     .description {
@@ -315,7 +428,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
             }
         }
 
-        button {
+        .description__link {
             font-family: $arno-font;
             font-weight: 400;
             @include font-clamp(1.6rem, 2rem);
@@ -337,6 +450,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
             @include device(tablet) {
                 width: 100%;
+                text-align: center;
             }
 
             &:hover {
@@ -358,33 +472,223 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     }
 }
 
+.premium__longlive {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+    @include device(tablet) {
+        height: auto;
+        padding: 40px 16px 120px;
+    }
+
+    .premium__subtitle {
+        @include device(tablet) {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .premium__title {
+        font-size: 4.8rem;
+        margin-top: 0;
+        max-width: 1184px;
+        margin-inline: auto;
+
+        @include device(tablet) {
+            font-size: 3.2rem;
+            margin-bottom: 72px;
+        }
+    }
+
+    .longlive {
+        &__center {
+            @include grid-column-24();
+            align-items: center;
+
+            @include device(mobile) {
+                display: block;
+            }
+        }
+
+        &__card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 46px;
+            border-radius: 20px;
+            aspect-ratio: 1;
+
+            .top {
+                font-family: $arno-font;
+                font-weight: 400;
+                font-size: 28px;
+                line-height: 24px;
+                letter-spacing: 5%;
+                text-align: center;
+                font-variant: small-caps;
+                text-transform: lowercase;
+
+                @include device(tablet) {
+                    font-size: 16px;
+                }
+            }
+
+            .bottom {
+                font-family: $main-font;
+                font-weight: 400;
+                font-size: 200px;
+                line-height: 90%;
+                letter-spacing: -2%;
+                text-align: center;
+                font-variant-numeric: lining-nums proportional-nums;
+                text-transform: uppercase;
+
+                @include device(tablet) {
+                    font-size: 70px;
+                }
+            }
+        }
+
+        &__reward {
+            display: grid;
+            gap: 16px;
+
+            height: auto;
+            padding: 16px 55px 24px;
+            border-left: 1px solid rgba(44, 44, 44, 1);
+            border-right: 1px solid rgba(44, 44, 44, 1);
+            border-radius: 100px;
+
+            @include device(tablet) {
+                max-width: 529px;
+                margin-inline: auto;
+                padding: 16px 0 20px;
+                gap: 12px;
+            }
+
+            &:first-child {
+                grid-column: 2 / 9;
+            }
+
+            &:last-child {
+                grid-column: 17 / 24;
+            }
+
+            .reward {
+                font-weight: 400;
+                font-size: 2rem;
+                line-height: 20px;
+                letter-spacing: 5%;
+                text-align: center;
+                font-variant: all-small-caps;
+                color: rgba(169, 98, 50, 1);
+                text-transform: lowercase;
+
+                @include device(tablet) {
+                    font-size: 1.6rem;
+                }
+            }
+
+            .reward-text {
+                font-weight: 400;
+                font-size: 2rem;
+                line-height: 20px;
+                letter-spacing: 0%;
+                text-align: center;
+
+                @include device(tablet) {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        &__info {
+            padding-top: 80px;
+            max-width: 414px;
+            margin-inline: auto;
+            text-align: center;
+
+            font-family: $arno-font;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 20px;
+            letter-spacing: 0.1rem;
+            text-align: center;
+            font-variant: small-caps;
+            text-transform: lowercase;
+
+            .icons {
+                margin-inline: auto;
+                margin-block: 16px 32px;
+            }
+        }
+
+        &__link {
+            color: rgba(169, 98, 50, 1);
+        }
+    }
+
+    .block-container {
+        aspect-ratio: 1;
+        border-radius: 1.8rem;
+        position: relative;
+        overflow: hidden;
+        grid-column: 10 / 16;
+
+        @include device(tablet) {
+            max-width: 246px;
+            margin-inline: auto;
+            margin-block: 32px;
+        }
+    }
+
+    .block {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #eee;
+        border-radius: 20px;
+        font-size: 3em;
+        color: #333;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .premium__uniq {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 24px;
 
     position: relative;
-    padding: 24px 24px 0;
 
-    @include device(tablet) {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+    height: calc(100vh - 32px);
+    padding: 24px;
+    margin-inline: 16px;
 
-        padding: 16px 16px 0;
-    }
+    border-radius: 18px;
+    background-color: white;
 
     .image {
-        grid-column: 1 / span 2;
-
-        width: 100%;
-        background-color: grey;
+        width: 213px;
+        height: 213px;
         aspect-ratio: 1;
 
-        border-radius: 18px;
+        border-radius: 10px;
+        align-self: flex-end;
 
         @include device(tablet) {
-            order: 2;
+            width: 101px;
+            height: 101px;
+            align-self: flex-start;
+            justify-self: flex-end;
+            grid-row: 1;
         }
     }
 
@@ -393,21 +697,21 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         text-transform: lowercase;
         line-height: 90%;
 
-        letter-spacing: 5%;
+        letter-spacing: 0.1rem;
         font-variant: small-caps;
 
         @include device(tablet) {
-            order: 1;
-            display: flex;
-            gap: 32px;
-
-            overflow-x: scroll;
+            grid-row: 1;
         }
 
         span {
             display: block;
             text-wrap: nowrap;
             cursor: pointer;
+
+            @include device(tablet) {
+                text-wrap: unset;
+            }
         }
 
         .active {
@@ -416,20 +720,28 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     }
 
     .uniq-content__text {
+        width: 450px;
+        justify-self: flex-end;
+
         font-family: $main-font;
         @include font-clamp(1.8rem, 2.6rem);
+
+        text-wrap: balance;
 
         line-height: 110%;
 
         @include device(tablet) {
-            order: 3;
+            width: unset;
+            grid-column: 1/-1;
+            grid-row: 2;
+            align-self: flex-end;
         }
     }
 
     .uniq-content__number {
         position: absolute;
         top: 50%;
-        left: 75%;
+        left: 50%;
         transform: translate(-50%, -50%);
 
         display: flex;
@@ -437,7 +749,6 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
         font-weight: 400;
 
-        max-width: 50%;
         width: 100%;
 
         span:not(.premium__subtitle) {
@@ -447,24 +758,18 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
             letter-spacing: 0%;
             text-align: center;
             text-wrap: balance;
+            max-width: 900px;
+            margin-inline: auto;
 
             @include device(tablet) {
-                font-size: 3.2rem;
+                font-size: 4rem;
                 text-align: center;
             }
         }
 
         @include device(tablet) {
-            position: relative;
-            order: 4;
-            margin-top: 56px;
             margin-inline: auto;
-
-            top: unset;
-            left: unset;
-            transform: unset;
-            max-width: unset;
-
+            max-width: 90%;
         }
     }
 }
@@ -739,16 +1044,6 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
     }
 }
 
-@mixin grid-column-24 {
-    display: grid;
-    grid-template-columns: repeat(24, 1fr);
-    gap: 24px;
-
-    @include device(tablet) {
-        display: flex;
-        gap: 41px;
-    }
-}
 
 @mixin grid-column-mobile {
     display: grid;
@@ -773,8 +1068,11 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         display: flex;
         gap: 32px;
 
-        padding: 32px 24px;
+        padding-block: 32px;
+        margin-inline: 24px;
         cursor: pointer;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
 
         .active {
             color: #A96232;
@@ -823,7 +1121,6 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         max-height: 367px;
         padding-bottom: 64px;
         margin-inline: 24px;
-        border-top: 1px solid rgba(0, 0, 0, 1);
 
         overflow: hidden;
 
@@ -832,6 +1129,10 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         @include device(tablet) {
             overflow-x: scroll;
             overflow-y: hidden;
+            margin-right: 0;
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         &.active {
@@ -852,7 +1153,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
             position: absolute;
             bottom: 82px;
 
-            min-width: 600px;
+            min-width: 620px;
             width: 100%;
             height: 64px;
             background: linear-gradient(180deg, rgba(245, 242, 240, 0) 0%,
@@ -865,7 +1166,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
             position: absolute;
             bottom: 0;
 
-            min-width: 600px;
+            min-width: 620px;
             width: 100%;
             height: 82px;
             background-color: rgba(245, 242, 240, 1);
@@ -989,6 +1290,23 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
         @include device(tablet) {
             padding-top: 16px;
+            padding-bottom: 24px;
+        }
+
+        .swiper-scrollbar {
+            margin-top: 20px;
+            padding-inline: 12px;
+            height: 1px;
+            background: #ccc;
+            display: none;
+
+            @include device(tablet) {
+                display: block;
+            }
+        }
+
+        .swiper-scrollbar-drag {
+            background: #333;
         }
     }
 
@@ -1047,8 +1365,8 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
 
             span:nth-child(2) {
                 padding-inline: 16px;
-                border-right: 1px solid rgba(0, 0, 0, 1);
-                border-left: 1px solid rgba(0, 0, 0, 1);
+                border-right: 1px solid #cccccc;
+                border-left: 1px solid #cccccc;
 
                 @include device(tablet) {
                     padding-inline: 12px;

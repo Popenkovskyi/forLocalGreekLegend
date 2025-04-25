@@ -1,6 +1,6 @@
 @use "mixins";
 
-@include mixins.font-face(Pragmatica, "../fonts/Pragmatica-Book");
+@include mixins.font-face(Pragmatica, "../fonts/Pragmatica-Book", 400);
 @include mixins.font-face(Pragmatica, "../fonts/Pragmatica-Medium", 500);
 @include mixins.font-face(Pragmatica, "../fonts/Pragmatica-Bold", 700);
 @include mixins.font-face(ArnoPro, "../fonts/ArnoPro-Regular");

@@ -7,10 +7,10 @@ const DURATION_SPEED = 0.2;
 let isPageLoad = false;
 
 let currentFrame = 0;
-const startFrame = 90;
+const startFrame = 0;
 const totalFrames = 240;
 
-const FPS = 48;
+const FPS = 60;
 let direction = 1; // 1 — вперёд, -1 — назад
 let interval = null;
 
@@ -184,6 +184,7 @@ const fragments = [
         end: 89,
         avatarIndex: 0,
         text: 'Фермерская линейка масла — Voutaktakis.',
+        link: 'https://greeklegend.ru/olive-oil/premium_voutaktakis/',
         animationEnter: descriptionBlockAnimate().onEnter,
         animationLeave: uvProtectionBlockAnimate().onLeave,
         animationEnterBack: uvProtectionBlockAnimate().onEnter,
@@ -194,12 +195,14 @@ const fragments = [
         end: 104,
         avatarIndex: 1,
         text: 'Фермерская линейка масла — Papadakis.',
+        link: 'https://greeklegend.ru/olive-oil/premium_papadakis/'
     },
     {
         start: 104,
         end: 118,
         avatarIndex: 2,
         text: 'Фермерская линейка масла — Chatzigiorgis.',
+        link: 'https://greeklegend.ru/olive-oil/premium_chatzigiorgis/'
     },
     {
         start: 118,
@@ -221,13 +224,16 @@ function pad(n) {
     return n.toString().padStart(3, '0');
 }
 
+const isHeroMobile = window.innerWidth < 768;
+const imagesSrcPath = isHeroMobile ? (img) => `heroMob/0${img}.webp` : (img) => `hero/0${img}.webp`;
+
 const frames = [];
 function preloadFrames() {
     for (let i = 0; i < totalFrames; i++) {
         const frameNumber = startFrame + i;
         const padded = pad(frameNumber);
         const image = new Image();
-        image.src = `frames-optimized/0${padded}.webp`;
+        image.src = imagesSrcPath(padded);
         frames.push(image);
     }
 }
@@ -270,9 +276,7 @@ preloadFrames();
 updateFrame();
 
 async function playForward(index) {
-    if (index < fragments.length - 1) {
-        lockScroll();
-    }
+    lockScroll();
 
     direction = 1;
     currentFrame = fragments[index].start;
@@ -325,6 +329,7 @@ document.querySelectorAll(".step").forEach((step, index) => {
 
 const descriptionText = avatarDescription.querySelector(".description__text");
 const descriptionStepNumber = avatarDescription.querySelectorAll(".description__step-numbers");
+const descriptionStepLink = avatarDescription.querySelector(".description__link")
 function changeActiveAvatar(fragment, direction = 1) {
     if (fragment?.avatarIndex === undefined || (fragment.avatarIndex === 0 && direction === 1)) return;
 
@@ -332,6 +337,7 @@ function changeActiveAvatar(fragment, direction = 1) {
     avatarPeople[fragment.avatarIndex].classList.add('active');
 
     descriptionText.textContent = fragment.text;
+    descriptionStepLink.href = fragment.link;
 
     gsap.to(descriptionStepNumber, {
         y: fragment.avatarIndex * -20,

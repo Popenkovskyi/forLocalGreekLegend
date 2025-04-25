@@ -14,9 +14,10 @@ new Swiper('.js-premium-recipes-swiper', {
             slidesOffsetAfter: 24,
         },
     },
+    scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true,
+    },
 });
 
 console.log('swiper')
-
-const images = document.querySelectorAll('img');
-images.forEach(el => el.addEventListener("contextmenu", (e) => e.preventDefault()));
