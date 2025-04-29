@@ -1,4 +1,28 @@
-const img = document.getElementById("video-frame");
+const canvas = document.getElementById("video-frame");
+const ctx = canvas.getContext("2d");
+
+const isHeroMobile = window.innerWidth < 768;
+// const baseWidth = isHeroMobile ? 640 : 1920;
+// const baseHeight = isHeroMobile ? 360 : 1080;
+
+// ===============
+const dpr = window.devicePixelRatio || 1;
+
+const setCanvasSize = () => {
+    const isHeroMobile = window.innerWidth < 768;
+    const baseWidth = isHeroMobile ? 640 : 1920;
+    const baseHeight = isHeroMobile ? 360 : 1080;
+
+    canvas.width = baseWidth * dpr;
+    canvas.height = baseHeight * dpr;
+
+    ctx.scale(dpr, dpr);
+};
+
+// Вызываем при инициализации и ресайзе
+setCanvasSize();
+//=================
+
 const frameSlider = document.getElementById("frame-slider");
 const currentFrameDisplay = document.getElementById("current-frame");
 
@@ -12,10 +36,11 @@ const totalFrames = 240;
 
 const FPS = 60;
 let direction = 1; // 1 — вперёд, -1 — назад
-let interval = null;
 
 // utils для оборачивания в span class="line"
 function wrapLines(spanLines) {
+    if (isHeroMobile) return;
+
     spanLines.forEach(container => {
         const lines = container.innerHTML.split("<br>");
 
@@ -220,60 +245,79 @@ const fragments = [
     },
 ];
 
-function pad(n) {
-    return n.toString().padStart(3, '0');
-}
-
-const isHeroMobile = window.innerWidth < 768;
-const imagesSrcPath = isHeroMobile ? (img) => `heroMob/0${img}.webp` : (img) => `hero/0${img}.webp`;
-
+const imagesSrcPath = isHeroMobile ? '../local/templates/greek/img/components/premium/heroMob' : '../local/templates/greek/img/components/premium/hero';
 const frames = [];
-function preloadFrames() {
+async function preloadFrames() {
+    const promises = [];
+
     for (let i = 0; i < totalFrames; i++) {
-        const frameNumber = startFrame + i;
-        const padded = pad(frameNumber);
-        const image = new Image();
-        image.src = imagesSrcPath(padded);
-        frames.push(image);
+        const path = `${imagesSrcPath}/${i.toString().padStart(4, "0")}.webp`;
+        const img = fetch(path)
+            .then(res => res.blob())
+            .then(blob => createImageBitmap(blob));
+        promises.push(img);
     }
+
+    const loadedFrames = await Promise.all(promises);
+    for (let i = 0; i < totalFrames; i++) {
+        frames[i] = loadedFrames[i];
+    }
+
+    console.log("Все кадры загружены");
+    isPageLoad = true;
+    updateFrame();
 }
+
+preloadFrames();
 
 function updateFrame() {
-    if (frames[currentFrame]?.src)
-        img.src = frames[currentFrame].src;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(frames[currentFrame], 0, 0, canvas.width / dpr, canvas.height / dpr);
 }
+
+let animationFrameId;
 
 function play(index) {
     if (!isPageLoad) return;
 
-    clearInterval(interval);
+    cancelAnimationFrame(animationFrameId);
+
     const fragment = fragments[index];
+    let lastTimestamp = 0;
 
-    interval = setInterval(() => {
-        currentFrame += direction;
+    function animate(timestamp) {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        const deltaTime = timestamp - lastTimestamp;
 
-        // Проверка границ с учетом направления
-        if (direction === 1 && currentFrame >= fragment.end) {
-            currentFrame = fragment.end;
-            pause();
-            unlockScroll();
-        } else if (direction === -1 && currentFrame <= fragment.start) {
-            currentFrame = fragment.start;
-            pause();
-            unlockScroll();
+        if (deltaTime >= (1000 / FPS)) {
+            lastTimestamp = timestamp;
+            currentFrame += direction;
+
+            if (direction === 1 && currentFrame >= fragment.end) {
+                currentFrame = fragment.end;
+                pause();
+                unlockScroll();
+                return;
+            } else if (direction === -1 && currentFrame <= fragment.start) {
+                currentFrame = fragment.start;
+                pause();
+                unlockScroll();
+                return;
+            }
+
+            updateFrame();
         }
 
-        updateFrame();
-    }, 1000 / FPS);
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    animationFrameId = requestAnimationFrame(animate);
 }
 
 function pause() {
-    clearInterval(interval);
+    cancelAnimationFrame(animationFrameId);
 }
 
-// Инициализация
-preloadFrames();
-updateFrame();
 
 async function playForward(index) {
     lockScroll();
@@ -343,7 +387,3 @@ function changeActiveAvatar(fragment, direction = 1) {
         y: fragment.avatarIndex * -20,
     })
 }
-
-window.addEventListener("load", () => {
-    isPageLoad = true;
-})

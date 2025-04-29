@@ -18,7 +18,7 @@ blocks.forEach((block, i) => {
 
 ScrollTrigger.create({
     trigger: container,
-    start: "bottom bottom",
+    start: `${window.innerHeight / 2} center`,
     end: "+=" + (numBlocks * window.innerHeight) + " center",
     pin: true,
     scrub: true,

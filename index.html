@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-widthFk5ljhg{Y4hfRY&*R5tgh, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +11,7 @@
 <body>
     <div class="premium__hero">
         <div class="video-wrapper">
-            <img id="video-frame" src="" alt="frame" />
+            <canvas id="video-frame" src="" alt="frame"></canvas>
 
             <div class="avatars">
                 <img class="avatars__people active" src="img/components/premium/avatars/image1.png" alt="">
@@ -51,7 +51,7 @@
                     Откройте для себя живое<br>
                     оливковое масло – <br>
                     доказанный источник <br>
-                    долготлетия
+                    долголетия
                 </div>
                 <div class="main-content__reward">
                     <span class="reward">
@@ -181,8 +181,11 @@
 
                 <img class="icons" src="img/components/premium/longLive/icons.webp" alt="">
 
-                <a href="#" class="longlive__link">
+                <a href="https://greeklegend.ru/articles/health/dolgoletie-i-olivkovoe-maslo/" class="longlive__link">
                     читать подробнее
+                    <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 13H24M24 13L12 1M24 13L12 25" stroke="#2C2C2C" />
+                    </svg>
                 </a>
             </div>
         </div>
@@ -200,17 +203,19 @@
                     <div class="text-layer next"></div>
                 </div>
 
-
-
                 <div class="uniq-content__number">
-                    <span class="premium__subtitle">Только живой фермерский продукт</span>
+                    <span id="uniq-subtitle" class="premium__subtitle">Только живой фермерский продукт</span>
                     <span>
                         Не осветляем, не смешиваем<br>
                         и не фильтруем масло
                     </span>
                 </div>
 
-                <img class="image" src="img/components/premium/uniq/image.png" alt="оливковое дерево">
+                <div class="uniq-content__images">
+                    <img class="uniq-image" src="img/components/premium/uniq/image.webp" alt="оливковое дерево">
+                    <img class="uniq-image" src="img/components/premium/uniq/image1.webp" alt="оливковое дерево">
+                    <img class="uniq-image" src="img/components/premium/uniq/image2.webp" alt="оливковое дерево">
+                </div>
             </div>
         </section>
 
@@ -306,7 +311,7 @@
             <div class="premium__list">
                 <a href="https://greeklegend.ru/olive-oil/premium_voutaktakis/" class="list-card">
                     <span class="list-card__description">
-                        Воутактакис<br>
+                        Вутактакис<br>
                         250, 500, 750 мл<br>
                         2024 год
                     </span>
@@ -331,7 +336,7 @@
 
                 <a href="https://greeklegend.ru/olive-oil/premium_chatzigiorgis/" class="list-card">
                     <span class="list-card__description">
-                        Чатзигиоргис<br>
+                        Хатзигиоргис<br>
                         250, 500, 750 мл<br>
                         2024 год
                     </span>

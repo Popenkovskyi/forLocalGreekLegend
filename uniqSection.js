@@ -14,6 +14,24 @@ const tabTexts = {
     quality: `Живое оливковое масло Greek Legend Premium — это по сути свежевыжатый сок оливы, который содержит на 120% больше полифенолов и витаминов, чем обычное масло.`
 };
 
+const uniqTitles = {
+    acid: 'Не осветляем, не смешиваем<br> и не фильтруем масло',
+    harvest: 'Позволяет жить дольше на<br> 23%',
+    quality: 'Содержит на 240% больше<br> полифенолов, чем обычное<br> оливковое масло',
+}
+
+const uniqSubtitles = {
+    acid: 'Только живой фермерский продукт',
+    harvest: 'Доказано в 2020 году British Journal of Nutrition',
+    quality: 'Исследовано в ELGO-DIMITRA, Греция',
+}
+
+const uqniqImages = {
+    acid: 'img/components/premium/uniq/image.webp',
+    harvest: 'img/components/premium/uniq/image1.webp',
+    quality: 'img/components/premium/uniq/image2.webp',
+}
+
 const tabOrder = ['acid', 'harvest', 'quality'];
 const uniqBlocks = tabOrder.length;
 
@@ -30,6 +48,7 @@ ScrollTrigger.create({
     scrub: true,
     // markers: true,
     onUpdate: self => {
+
         const progress = self.progress;
         const activeIndex = Math.min(
             Math.floor(progress * uniqBlocks),
@@ -37,23 +56,15 @@ ScrollTrigger.create({
         );
 
         if (activeIndex !== previousIndex) {
-            const direction = self.direction; // 1 = вниз, -1 = вверх
-            activateTabWithAnimation(tabOrder[activeIndex], direction);
+            const currentTabName = tabOrder[activeIndex];
+            const direction = self.direction;
+
+            activateTabWithAnimation(currentTabName, direction);
+            uniqImageAnimated(activeIndex, direction);
+            uniqTextAnimation(uniqSubtitles[currentTabName], uniqTitles[currentTabName], direction)
+
             previousIndex = activeIndex;
         }
-
-        blocks.forEach((block, i) => {
-            if (i === 0) return;
-
-            if (i < activeIndex) {
-                gsap.to(block, { yPercent: 0, overwrite: true });
-            } else if (i === activeIndex) {
-                const localProgress = (progress * uniqBlocks) % 1;
-                gsap.to(block, { yPercent: 100 * (1 - localProgress), overwrite: true });
-            } else {
-                gsap.to(block, { yPercent: 100, overwrite: true });
-            }
-        });
     }
 });
 
@@ -96,7 +107,7 @@ function activateTabWithAnimation(tabKey, direction) {
         el.style.position = 'absolute';
         el.style.width = '100%';
         el.style.height = '100%';
-        el.style.top = '0';
+        el.style.top = isHeroMobile ? '-150px' : '0';
         el.style.left = '0';
     });
 
@@ -134,6 +145,69 @@ function activateTabWithAnimation(tabKey, direction) {
         duration: 0.8,
         ease: 'power2.inOut'
     }, 0);
+}
+
+const uniqImagesContainer = document.querySelector('.uniq-content__images');
+const uniqImages = uniqImagesContainer.querySelectorAll('.uniq-image');
+let lastZIndex = 1;
+function uniqImageAnimated(index, direction) {
+    if (index < 0 || index >= uniqImages.length) return;
+
+    if (index === 0) {
+        uniqImages.forEach(image => {
+            gsap.set(image, {
+                zIndex: 0,
+            })
+        })
+
+        lastZIndex = 0;
+    }
+
+    lastZIndex += 1;
+
+    gsap.set(uniqImages[index], {
+        clipPath: direction === 1
+            ? 'inset(100% 0% 0% 0%)'
+            : 'inset(0% 0% 100% 0%)',
+        autoAlpha: 1,
+        zIndex: lastZIndex
+    });
+
+    gsap.to(uniqImages[index], {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1,
+        ease: "power2.out"
+    });
+}
+
+function uniqTextAnimation(newSubtitle, newText, direction = 1) {
+    const subtitle = document.querySelector('#uniq-subtitle');
+    const text = subtitle.nextElementSibling;
+
+    if (!subtitle || !text) return;
+
+    const offset = 100 * direction;
+
+    // Анимируем уход старого текста
+    gsap.to([subtitle, text], {
+        y: -offset,
+        autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+            subtitle.innerHTML = newSubtitle;
+            text.innerHTML = newText;
+
+            gsap.set([subtitle, text], { y: offset, autoAlpha: 0 });
+
+            gsap.to([subtitle, text], {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
