@@ -298,6 +298,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
                 letter-spacing: 0%;
                 text-align: center;
 
+
                 @include device(tablet) {
                     font-size: 1.6rem;
                 }
@@ -538,6 +539,10 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
             }
 
             .bottom {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+
                 font-family: $main-font;
                 font-weight: 400;
                 font-size: 200px;
@@ -546,6 +551,10 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
                 text-align: center;
                 font-variant-numeric: lining-nums proportional-nums;
                 text-transform: uppercase;
+
+                @media only screen and (max-width: 1700px) {
+                    font-size: 140px;
+                }
 
                 @include device(tablet) {
                     font-size: 70px;
@@ -599,6 +608,14 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
                 line-height: 20px;
                 letter-spacing: 0%;
                 text-align: center;
+
+                @media screen and (max-width: 1700px) {
+                    text-wrap: balance;
+
+                    br {
+                        display: none;
+                    }
+                }
 
                 @include device(tablet) {
                     font-size: 1.6rem;
@@ -662,6 +679,7 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         position: relative;
         overflow: hidden;
         grid-column: 10 / 16;
+        border-radius: 2rem;
 
         @include device(tablet) {
             max-width: 246px;
@@ -675,139 +693,204 @@ $arno-font: "ArnoPro", arial, helvetica, sans-serif;
         width: 100%;
         height: 100%;
         background: #eee;
-        border-radius: 20px;
         font-size: 3em;
         color: #333;
 
         img {
             width: 100%;
+            border-radius: 2.2rem;
         }
     }
 }
 
-.premium__uniq {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 24px;
+// === new
+$brown: rgba(169, 98, 50, 1);
+$white: #fff;
 
-    position: relative;
+p {
+    margin: 0;
+}
 
-    height: calc(100vh - 32px);
-    padding: 24px;
-    margin-inline: 16px;
+@mixin text-style($size) {
+    @if $size ==64 {
+        font-family: 'ArnoPro', sans-serif;
+        font-weight: 400;
+        font-size: 6.4rem;
+        line-height: 1;
+        letter-spacing: 0%;
 
-    border-radius: 18px;
-    background-color: white;
+        @include device(tablet) {
+            font-size: 4rem;
+        }
+    }
 
+    @else if $size ==26 {
+        font-family: 'Pragmatica', sans-serif;
+        font-weight: 400;
+        font-size: 2.6rem;
+        line-height: 110%;
+        letter-spacing: 0;
+        font-variant: lining-nums proportional-nums;
+
+        @include device(tablet) {
+            font-size: 1.8rem;
+        }
+    }
+
+    @else if $size ==20 {
+        font-family: 'ArnoPro', sans-serif;
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 90%;
+        letter-spacing: 5%;
+        font-variant: all-small-caps;
+        text-transform: lowercase;
+
+        @include device(tablet) {
+            font-size: 1.6rem;
+        }
+    }
+
+    @else if $size ==20-i {
+        font-family: 'ArnoPro', sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 2rem;
+        line-height: 100%;
+        letter-spacing: 0;
+
+        @include device(tablet) {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+.text-line-mask {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    line-height: inherit;
     overflow: hidden;
 
+    &.left {
+        justify-content: flex-start;
+    }
+}
+
+
+.oil-facts-section {
+    height: 100dvh;
+    height: 100vh;
+    padding: 7.2rem 2.4rem 2.4rem;
+
     @include device(tablet) {
-        height: calc(100vh - 72px);
-        margin-top: 40px;
+        padding: 5.6rem 1.6rem 1.6rem;
     }
 
-    .uniq-content__type {
-        @include font-clamp(1.6rem, 2rem);
-        text-transform: lowercase;
-        line-height: 90%;
+    .subtitle {
+        @include text-style(20-i);
 
-        letter-spacing: 0.1rem;
-        font-variant: small-caps;
-
-        @include device(tablet) {
-            grid-row: 1;
-        }
-
-        span {
-            display: block;
-            text-wrap: nowrap;
-            cursor: pointer;
-
-            @include device(tablet) {
-                text-wrap: unset;
-            }
-        }
-
-        .active {
-            color: #A96232;
-        }
+        text-align: center;
     }
 
-    .uniq-content__text {
-        width: 450px;
-        justify-self: flex-end;
+    .title {
+        @include text-style(64);
 
-        font-family: $main-font;
-        @include font-clamp(1.8rem, 2.6rem);
-
+        max-width: 77.6rem;
+        margin-inline: auto;
+        text-align: center;
         text-wrap: balance;
-
-        line-height: 110%;
-
-        @include device(tablet) {
-            width: 100%;
-            grid-column: 1/-1;
-            grid-row: 2;
-            align-self: flex-end;
-        }
     }
 
-    .uniq-content__number {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .oil-facts {
+        position: relative;
 
         display: flex;
         flex-direction: column;
 
-        font-weight: 400;
+        height: 100%;
+        padding: 2.4rem;
+        border-radius: 1.8rem;
+        background-color: $white;
 
-        width: 100%;
+        @include device(tablet) {
+            padding: 1.6rem;
+        }
 
-        span:not(.premium__subtitle) {
-            font-weight: 400;
-            font-size: 6.4rem;
-            line-height: 80%;
-            letter-spacing: 0%;
-            text-align: center;
-            text-wrap: balance;
-            max-width: 900px;
-            margin-inline: auto;
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.2rem;
 
             @include device(tablet) {
-                font-size: 4rem;
-                text-align: center;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .type-list {
+                .type-list-item {
+                    @include text-style(20);
+
+                    &.active {
+                        color: $brown;
+                    }
+                }
+
+                @include device(tablet) {
+                    width: 50%;
+                }
+            }
+
+            .text {
+                @include text-style(26);
+
+                max-width: 45rem;
             }
         }
 
-        @include device(tablet) {
-            margin-inline: auto;
-            max-width: 90%;
-        }
-    }
-
-    .uniq-content__images {
-        position: relative;
-        width: 213px;
-        height: 213px;
-        aspect-ratio: 1;
-
-        border-radius: 10px;
-        align-self: flex-end;
-
-        @include device(tablet) {
-            width: 101px;
-            height: 101px;
-            align-self: flex-start;
-            justify-self: flex-end;
-            grid-row: 1;
-        }
-
-        .uniq-image {
+        .center {
             position: absolute;
             inset: 0;
+            margin: auto;
+            height: max-content;
+            overflow: hidden;
+
+            .title {
+                padding-top: 2.4rem;
+            }
+        }
+
+        .img-block {
+            position: relative;
+            width: 21.3rem;
+            aspect-ratio: 1;
+            margin-top: auto;
+            border-radius: 1rem;
+            overflow: hidden;
+
+            @include device(tablet) {
+                position: absolute;
+                top: 1.6rem;
+                right: 1.6rem;
+                width: 10.1rem;
+            }
+
+            img {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 16px;
+                pointer-events: none;
+                opacity: 1;
+                clip-path: inset(100% 0 0 0);
+                transition: clip-path 0.7s cubic-bezier(.7, .4, .15, 1);
+                z-index: 1;
+            }
         }
     }
 }

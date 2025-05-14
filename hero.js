@@ -245,7 +245,8 @@ const fragments = [
     },
 ];
 
-const imagesSrcPath = isHeroMobile ? '../local/templates/greek/img/components/premium/heroMob' : '../local/templates/greek/img/components/premium/hero';
+// const imagesSrcPath = isHeroMobile ? '../local/templates/greek/img/components/premium/heroMob' : '../local/templates/greek/img/components/premium/hero';
+const imagesSrcPath = isHeroMobile ? 'heroMob' : 'hero';
 const frames = [];
 async function preloadFrames() {
     const promises = [];
@@ -268,7 +269,7 @@ async function preloadFrames() {
     updateFrame();
 }
 
-preloadFrames();
+preloadFrames()
 
 function updateFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -320,7 +321,9 @@ function pause() {
 
 
 async function playForward(index) {
-    lockScroll();
+    if (index < fragments.length - 1) {
+        lockScroll();
+    }
 
     direction = 1;
     currentFrame = fragments[index].start;
